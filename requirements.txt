@@ -1,0 +1,39 @@
+# Python-Pakete
+discum>=1.4.1
+selenium>=4.8.0
+python-dateutil>=2.8.2
+fpdf2>=2.7.1
+requests>=2.28.1
+websocket-client>=1.6.0
+chromedriver-binary    
+webdriver-manager>=3.8.5
+
+# (Optional) Transitive Abhängigkeiten für komplettes pinnen
+# certifi>=2021.10.8
+# chardet>=3.0.4
+# idna>=2.10
+# urllib3>=1.26.7
+# six>=1.15.0
+
+# -------------------------------------------------
+# Auf minimalistischen linux builds fehlen oft noch
+# folgende systemseitige Libs, die von Chrome/Chromedriver
+# und gui‑toolkits benötigt werden:
+# 
+# sudo apt-get update
+# sudo apt-get install -y \
+#   libnss3 \
+#   libatk-bridge2.0-0 \
+#   libgtk-3-0 \
+#   libxss1 \
+#   libasound2 \
+#   fonts-liberation \
+#   libappindicator3-1 \
+#   libxcomposite1 \
+#   libxdamage1 \
+#   libxrandr2 \
+#   libgbm1 \
+#   libpango-1.0-0
+# 
+# Ohne diese DDLs schlägt Selenium/Chromedriver
+# auf ganz nackten server images gerne fehl.
