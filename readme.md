@@ -59,7 +59,6 @@ Der Bastiix Selfbot ermöglicht automatisierte Interaktionen mit Discord über e
 ## Konfiguration (`settings.py`)
 In der Datei `settings.py` definierst du:
 
-|------------------------|-------------------------------------------------------------------------------|
 | Variable               | Beschreibung                                                                  |
 |------------------------|-------------------------------------------------------------------------------|
 | `DEBUG`                | `True` für ausführliche Debug-Ausgaben, `False` für Prettymode                |
@@ -74,7 +73,6 @@ In der Datei `settings.py` definierst du:
 | `RESETCOLOR`           | Resetfarbe des Console Outputs in ANSI-Escape-Sequenz                         |
 | `MAX_CHUNK_SIZE`       | Maximale Zeichenlänge pro Nachricht, bevor Chunks gesendet werden             |
 | `SELFBOT_DUMP_CHANNEL` | Channel-ID für Dumps (ungenutzt)                                              |
-|------------------------|-------------------------------------------------------------------------------|
 
 Passe diese Werte vor dem ersten Start an.
 
