@@ -176,7 +176,7 @@ Jeder Ordner enthält einen `docs/`-Unterordner mit Dokumentation für jede Date
 - **Timeout beim Token**: Warte max. 5 Minuten manuell im Fenster, prüfe Cookies.
 - **Keine Module gefunden**: Prüfe `src/modules` und `__init__.py`
 - **Logs einsehen**: Debug-Logs in `log/debug/`, Crash-Dumps in `log/system/`
-- **Selfbot ist online aber reagiert nicht auf Befehle**: Überprüfe ob deie Discord-IP in der settings.py unter `ALLLOWED_USERS`registriert ist. Mehrere IDs werden mit Komma getrennt. `ALLLOWED_USERS = ("1234567890", "0987654321")
+- **Selfbot ist online aber reagiert nicht auf Befehle**: Überprüfe ob deine Discord-IP in der settings.py unter `ALLLOWED_USERS`registriert ist. Mehrere IDs werden mit Komma getrennt. `ALLLOWED_USERS = ("1234567890", "0987654321")
 
 ---
 
