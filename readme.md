@@ -73,35 +73,54 @@ Passe diese Werte vor dem ersten Start an.
 
 ## Verzeichnisstruktur
 
+```plaintext
+╔══════════════════════════════════════════════════════════════════════════════════════╗
+├─── first_setup.py
+├─── list_dir.py
+├─── main.py
+├─── readme.md
+├─── settings.py
+├─── docs/
+│   ├───────── main.md
+│   ├───────── modul_erstellen.md
+│   └───────── settings.md
+├─── log/
+│   ├───────── debug/
+│   │         └─ . . .
+│   └───────── system/
+│             └─ . . .
+└─── src/
+    ├───────── __init__.py
+    ├───────── core/
+    │         ├───────── animation/
+    │         │         ├───────── debug_animation.py
+    │         │         ├───────── pretty_animation.py
+    │         │         ├───────── running_animation.py
+    │         │         └───────── docs/
+    │         │             ├───────── debug_animation.md
+    │         │             ├───────── pretty_animation.md
+    │         │             └───────── running_animation.md
+    │         ├───────── discord/
+    │         │         ├───────── chameleon_mask.py
+    │         │         ├───────── commandtree.py
+    │         │         ├───────── message.py
+    │         │         └───────── docs/
+    │         │                   ├───────── chameleon_mask.md
+    │         │                   ├───────── commandtree.md
+    │         │                   └───────── message.md
+    │         └───────── system/
+    │                   ├───────── restart_debug.bat
+    │                   ├───────── restart_debug.sh
+    │                   └───────── docs/
+    │                             └─ (aktuell keine doku)
+    └───────── modules/
+              ├───────── __init__.py
+              └───────── inaktiv/
+                        └─────────  . . .
+                         
+╚══════════════════════════════════════════════════════════════════════════════════════╝
 ```
-├── main.py
-├── settings.py
-├── requirements.txt
-├── first_setup.py        # Setup-Skript für venv & Pakete
-├── log/                  # Logdateien (Debug + Crash)
-├── src/
-│   ├── core/
-│   │   ├── discord/
-│   │   │   ├── commandtree.py
-│   │   │   └── message.py
-│   │   └── animation/
-│   │       ├── running_animation.py
-│   │       └── debug_animation.py
-│   ├── modules/         # Benutzer-Module
-│   │   └── <module_name>/
-│   │       ├── setup.py
-│   │       └── docs/
-│   └── core/system/
-│       └── restart_debug.bat
-├── docs/                # Globale Dokumentation zu main.py, settings.py und Modul-Erstellung
-└── src/modules/
-    ├── <module1>/
-    │   ├── setup.py
-    │   └── docs/         # Detaillierte docs für jede Datei im Modul
-    └── <module2>/
-        ├── setup.py
-        └── docs/
-```
+
 
 ## Skript-Funktionen im Überblick
 
