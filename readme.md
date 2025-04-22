@@ -47,7 +47,8 @@ Der Bastiix Selfbot ermöglicht automatisierte Interaktionen mit Discord über e
 
 1. Repository klonen:
    ```bash
-   git clone <repo-url>
+   git clone https://github.com/Bastixxinc/bastiix_discum_selfbot
+
    cd <repo-directory>
    ```
 2. Setup-Skript ausführen (erstellt und aktiviert venv, installiert Abhängigkeiten):
