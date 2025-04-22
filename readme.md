@@ -6,7 +6,9 @@ python first_setup.py
 # Bastiix Selfbot
 
 Eine umfassende Anleitung zum Einrichten, Konfigurieren und Verwenden des Bastiix Selfbot.
-Jeder Ordner enthält einen Unterordner `docs/` mit einer Dokumentation zu jeder Datei (außer den vorinstallierten Modulen).
+Jeder Ordner enthält einen Unterordner `docs/` mit einer Dokumentation zu jeder Datei.
+
+**Es werden keine Module mitgeliefert. `help` ist der einzige integriere Befehl!** 
 
 Im `docs/` Ordner, welcher im gleichen Ordner wie die `main.py` liegt, ist eine detaillierte Erklärung zum Schreiben eigener Module.
 
@@ -56,77 +58,79 @@ Der Bastiix Selfbot ermöglicht automatisierte Interaktionen mit Discord über e
 ## Konfiguration (`settings.py`)
 In der Datei `settings.py` definierst du:
 
-| Variable               | Beschreibung                                                                 |
 |------------------------|-------------------------------------------------------------------------------|
-| `DEBUG`                | `True` für ausführliche Debug-Ausgaben, `False` für Prettymode                 |
+| Variable               | Beschreibung                                                                  |
+|------------------------|-------------------------------------------------------------------------------|
+| `DEBUG`                | `True` für ausführliche Debug-Ausgaben, `False` für Prettymode                |
 | `LOGGING`              | `True` um Logdateien unter `log/debug/` zu schreiben                          |
 | `PREFIX`               | Kommando-Präfix, z. B. `$` oder `&`                                           |
 | `LOGIN_EMAIL`          | E-Mail für automatisches Login (leer lassen für manuelles Login)              |
 | `LOGIN_PASSWORD`       | Passwort für automatisches Login (leer lassen für manuelles Login)            |
-| `ALLLOWED_USERS`       | Tupel von Discord-User-IDs, die Befehle ausführen dürfen                       |
-| Farbcodes (`MAINCOLOR`,`SECONDCOLOR`, `STAMPCOLOR`,`RESETCOLOR`)
+| `ALLLOWED_USERS`       | Tupel von Discord-User-IDs, die Befehle ausführen dürfen                      |
+| `MAINCOLOR`            | Hauptfarbe des Console Outputs in ANSI-Escape-Sequenz                         |
+| `SECONDCOLOR`          | Accentfarbe des Console Outputs in ANSI-Escape-Sequenz                        |
+| `STAMPCOLOR`           | Zeitstempelfarbe des Console Outputs in ANSI-Escape-Sequenz                   |
+| `RESETCOLOR`           | Resetfarbe des Console Outputs in ANSI-Escape-Sequenz                         |
 | `MAX_CHUNK_SIZE`       | Maximale Zeichenlänge pro Nachricht, bevor Chunks gesendet werden             |
-| `SELFBOT_DUMP_CHANNEL` | Channel-ID für Dumps im Fehlerfall                                            |
-| `RESTART_DEBUG_MODE_PATH` | Pfad zur Batch-Datei für Neustart im Debug-Mode                           |
+| `SELFBOT_DUMP_CHANNEL` | Channel-ID für Dumps (ungenutzt)                                              |
+|------------------------|-------------------------------------------------------------------------------|
 
 Passe diese Werte vor dem ersten Start an.
 
 ## Verzeichnisstruktur
 
 ```plaintext
-╔══════════════════════════════════════════════════════════════════════════════════════╗
-├─── first_setup.py
-├─── list_dir.py
-├─── main.py
-├─── readme.md
-├─── settings.py
-├─── docs/
-│   ├───────── main.md
-│   ├───────── modul_erstellen.md
-│   └───────── settings.md
-├─── log/
-│   ├───────── debug/
-│   │         └─ . . .
-│   └───────── system/
-│             └─ . . .
-└─── src/
-    ├───────── __init__.py
-    ├───────── core/
-    │         ├───────── animation/
-    │         │         ├───────── debug_animation.py
-    │         │         ├───────── pretty_animation.py
-    │         │         ├───────── running_animation.py
-    │         │         └───────── docs/
-    │         │             ├───────── debug_animation.md
-    │         │             ├───────── pretty_animation.md
-    │         │             └───────── running_animation.md
-    │         ├───────── discord/
-    │         │         ├───────── chameleon_mask.py
-    │         │         ├───────── commandtree.py
-    │         │         ├───────── message.py
-    │         │         └───────── docs/
-    │         │                   ├───────── chameleon_mask.md
-    │         │                   ├───────── commandtree.md
-    │         │                   └───────── message.md
-    │         └───────── system/
-    │                   ├───────── restart_debug.bat
-    │                   ├───────── restart_debug.sh
-    │                   └───────── docs/
-    │                             └─ (aktuell keine doku)
-    └───────── modules/
-              ├───────── __init__.py
-              └───────── inaktiv/
-                        └─────────  . . .
-                         
-╚══════════════════════════════════════════════════════════════════════════════════════╝
+╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+├─── first_setup.py    # Dieses Skript führt den initialen Setup-Prozess automatisiert aus.
+├─── main.py           # Hauptskript zum Start des Selfbots.
+├─── readme.md         # Übersicht und Anleitung.
+├─── settings.py       # Konfigurationsdatei.
+├─── docs/             # Dokumentationen für main.py, settings.py und Module.
+│   ├─ main.md              # Anleitung zum Aufsetzen eines eigenen Moduls.
+│   ├─ modul_erstellen.md   # Anleitung zur Modulerstellung.
+│   └─ settings.md         # Dokumentation der Einstellungen.
+├─── log/              # Ordner für Debug- und Systemlogs.
+│   ├─ debug/              # Debug-Logs.
+│   │   └─ ...
+│   └─ system/             # System-Logs.
+│       └─ ...
+└─── src/              # Quellcode-Verzeichnis.
+    ├─ __init__.py
+    ├─ core/                # Systemabhängigkeiten.
+    │   ├─ animation/           # Startup-Animationen.
+    │   │   ├─ debug_animation.py    # Debugging und Logging.
+    │   │   ├─ pretty_animation.py   # Start-up-Animation.
+    │   │   ├─ running_animation.py  # Ausgabe im „Pretty Mode“.
+    │   │   └─ docs/                 # Dokumentation der Animationen.
+    │   │       ├─ debug_animation.md
+    │   │       ├─ pretty_animation.md
+    │   │       └─ running_animation.md
+    │   ├─ discord/             # Discord-Core-Skripte.
+    │   │   ├─ chameleon_mask.py    # Tarn-Mechanismus für den Selfbot-Status.
+    │   │   ├─ commandtree.py       # Befehlsregistrierung für modularen Import.
+    │   │   ├─ message.py           # Formatierung von Discord-Nachrichten.
+    │   │   └─ docs/                # Dokumentation der Skripte.
+    │   │       ├─ chameleon_mask.md
+    │   │       ├─ commandtree.md
+    │   │       └─ message.md
+    │   └─ system/              # Systemskripte (.bat/.sh).
+    │       ├─ restart_debug.bat   # Fallback-Neustart im Debug-Modus (Windows).
+    │       ├─ restart_debug.sh    # Fallback-Neustart im Debug-Modus (Linux).
+    │       └─ docs/               # Dokumentation (aktuell keine).
+    └─ modules/             
+        ├─ __init__.py           # Initialisierung für modularen Import.
+        └─ inaktiv/              # Vom Import ignorierte, inaktive Module.
+            └─ ...
+╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 ```
+
 
 
 ## Skript-Funktionen im Überblick
 
 ### `main.py`
 - **SelfBot Klasse**: Initialisiert Selenium-Login, `discum.Client`, Event-Loop.
-- **_perform_login()**: Versucht automatisches Login oder öffnet manuelles Fenster.
+- **_perform_login()**: Versucht automatisches oder manuelles Login in einem Chrome Fenster.
 - **retry Decorator**: Wiederholungen mit Backoff für WebDriver-/Timeout-Fehler.
 - **simulate_typing_send()**: Splitten langer Nachrichten, Senden mit simulated Typing.
 - **setup_events()**: Websocket-Handler für `on_connect` und `on_message`.
@@ -136,37 +140,36 @@ Passe diese Werte vor dem ersten Start an.
 - **CommandTree**: Verwaltet Registrierung und Ausführung von Commands.
 - **register(cmd)**: Fügt einen `Command` hinzu.
 - **handle(channel_id, author, content)**: Parst Präfix, ruft `Command.execute()` auf.
-- **Autodiscover**: Lädt alle Module unter `src/modules` automatisch.
-- **Help-Command**: Eingebauter `help` mit Übersicht und Detailansicht.
+- **Autodiscover**: Lädt alle Module unter `src/modules/ . . .` automatisch.
+- **Help-Command**: Eingebauter `help` mit Übersicht und Detailansicht sowie automatischer Integration der Befehler in den Modulen.
 
 ### `src/core/discord/message.py`
-Stellt verschiedene Formatierungsfunktionen für Rückgabewerte bereit:
+Stellt verschiedene Formatierungsfunktionen für Discord Nachrichten bereit:
 - `success_message`, `info_message`, `error_message`, `boxed_message_with_title`, u.v.m.
 
 ### `src/core/animation/running_animation.py`
-- **append_message(text)**: Schicke Pretty-Output mit Zeitstempel und Farbgebung.
-- **print_banner(text)**: Große Rahmen-Banner, wenn `DEBUG=False`.
+- **append_message(text)**: Pretty-Output (Debug = False) Runntime Console Outputs mit Zeitstempel und Farbgebung.
+- **print_banner(text)**: Rahmen-Banner (Debug = False) Runntime Console Outputs.
 
 ### `src/core/animation/debug_animation.py`
-- **DebugConsole** (`debug_logger`): Loggt Debug/Warn/Error intern und in Dateien.
-- **debug()/warning()/error()**: Methoden zur differenzierten Protokollierung.
+- **DebugConsole** (`debug_logger`): Loggt Debug/Warn/Error intern und in Dateien. Nimmt Console Debug Output entgegen. Printet nur wenn (Debug = True)
+- **debug()/warning()/error()**: Methoden zur differenzierten Protokollierung und Output
 
 ## Module und `docs/`-Ordner
 
-Jeder Modul-Ordner enthält einen `docs/`-Unterordner mit Dokumentation für jede Datei:
-```
-src/modules/<modul>/docs/
-├── setup.md         # Erklärt Aufbau der setup()-Funktion
-└── weitere_datei.md # Detaillierte Beschreibung
-```
-Verweise aus dem Haupt-`README` via relative Pfade.
+Jeder Ordner enthält einen `docs/`-Unterordner mit Dokumentation für jede Datei:
+
+---
 
 ## Benutzung
 
-1. `python main.py` starten
-2. Folge dem Chrome-Login (manuell oder automatisch durch `LOGIN_EMAIL`/`LOGIN_PASSWORD`)
-3. Nutze Befehle in Discord mit dem Präfix aus `settings.py` (`$` standardmäßig)
-4. Hilfestellung mit `$help` und `$help <befehl>`
+1. `python first_setup.py` starten (venv und requirements.tx setup automatisiert)
+2. Folge den Anweisungen des Outputs der first_setup.py
+3. Konfiguriere ggf die settings.py 
+4. `python main.py` starten
+5. Folge dem Chrome-Login (manuell oder automatisch durch `settings.LOGIN_EMAIL`/`settings.LOGIN_PASSWORD`)
+6. Nutze Befehle in Discord mit dem Präfix aus `settings.py` (`$` standardmäßig)
+7. Hilfestellung mit `$help` und `$help <befehl>`
 
 ## Fehlerbehebung
 
@@ -174,8 +177,9 @@ Verweise aus dem Haupt-`README` via relative Pfade.
 - **Timeout beim Token**: Warte max. 5 Minuten manuell im Fenster, prüfe Cookies.
 - **Keine Module gefunden**: Prüfe `src/modules` und `__init__.py`
 - **Logs einsehen**: Debug-Logs in `log/debug/`, Crash-Dumps in `log/system/`
+- **Selfbot ist online aber reagiert nicht auf Befehle**: Überprüfe ob deie Discord-IP in der settings.py unter `ALLLOWED_USERS`registriert ist. Mehrere IDs werden mit Komma getrennt. `ALLLOWED_USERS = ("1234567890", "0987654321")
 
 ---
 
-*Dieses Readme ist KI Generiert.*
-
+*Dieses Readme ist Teilweise AI Generiert.*
+~ Bastiix
