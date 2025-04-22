@@ -1,6 +1,8 @@
 @echo off
 REM ----------------------------------------
 REM \src\core\system\restart_debug.bat
+REM \author @bastiix
+
 REM ----------------------------------------
 
 SET MAIN_PY=%%~dp0\..\..\..\main.py

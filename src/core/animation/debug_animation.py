@@ -1,5 +1,6 @@
 # ---------------------------------------------------------------------------
 # \src\core\animation\debug_animation.py
+# \author @bastiix
 # ---------------------------------------------------------------------------
 import os
 import re
@@ -33,10 +34,8 @@ class DebugConsole:
         self._log_fp         = None
 
         if self.logging_enabled:
-            # Log directory path: \log\debug\
             base_log_dir = os.path.join(os.getcwd(), "log", "debug")
             os.makedirs(base_log_dir, exist_ok=True)
-            # Filename based on timestamp
             fname = datetime.now().strftime("%Y%m%d_%H%M%S") + ".txt"
             self._log_fp = open(os.path.join(base_log_dir, fname), "a", encoding="utf-8")
             atexit.register(self._close_log)
@@ -93,12 +92,10 @@ class DebugConsole:
         self._warn_count += 1
         self._print_message("WARNUNG", self._warn_count, fn, msg, _WARN_COLOR)
 
-    # Alias for warning to avoid duplication
     warn = warning
 
     def error(self, fn: str, msg: str):
         self._error_count += 1
         self._print_message("FEHLER", self._error_count, fn, msg, _ERROR_COLOR)
 
-# globaler Logger
 logger = DebugConsole()

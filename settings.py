@@ -1,12 +1,13 @@
 # ---------------------------------------------------------------------------
 # \settings.py
+# \author @bastiix
 # ---------------------------------------------------------------------------
 
 DEBUG = False                                       # Debug-Mode (True/False) Prettymode = DEBUGMODE FALSE
 LOGGING = True                                      # Logging-Mode (True/False) 
 PREFIX = "$"
-LOGIN_EMAIL = ""                # leer lassen wenn login manuell eingegeben werden soll
-LOGIN_PASSWORD = ""                  # leer lassen wenn login manuell eingegeben werden soll
+LOGIN_EMAIL = ""                                    # leer lassen wenn login manuell eingegeben werden soll
+LOGIN_PASSWORD = ""                                 # leer lassen wenn login manuell eingegeben werden soll
 
 ALLLOWED_USERS = ("514907234644393996",             # Bastixx
                   "488449454094155777",             # Dani Main
@@ -33,7 +34,6 @@ import subprocess
 _PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 _SYSTEM_DIR   = os.path.join(_PROJECT_ROOT, 'src', 'core', 'system')
 
-# === Korrekte Pfade für Windows und Unix ===
 RESTART_DEBUG_MODE_PATH_WINDOWS = os.path.join(_SYSTEM_DIR, 'restart_debug.bat')
 RESTART_DEBUG_MODE_PATH_LINUX   = os.path.join(_SYSTEM_DIR, 'restart_debug.sh')
 

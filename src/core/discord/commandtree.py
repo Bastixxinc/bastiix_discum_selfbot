@@ -1,17 +1,14 @@
 # ---------------------------------------------------------------------------
 # \src\core\discord\commandtree.py
+# \author @bastiix
 # ---------------------------------------------------------------------------
 import pkgutil
 import importlib
 import inspect
-import os
-import threading
-import time
 from typing import Callable, Dict, List, Tuple
 
 from src.core.discord.message import boxed_message_with_title
 from src.core.animation.debug_animation import logger as debug_logger
-from src.core.animation.running_animation import append_message
 
 try:
     import settings
@@ -126,7 +123,6 @@ class CommandTree:
             }
             debug_logger.debug('CommandTree.handle', f"Context for execution: {ctx}")
 
-            # Befehl ausführen
             result = cmd.execute(ctx, args)
             debug_logger.debug('CommandTree.handle', f"Command '{name}' returned result: {result!r}")
             return True, result

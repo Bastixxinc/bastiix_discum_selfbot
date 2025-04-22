@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # ----------------------------------------
-# Restart-Skript für Unix/Linux/macOS: startet main.py im DEBUG-Modus
+# \src/core/system/restart_debug.sh
+# \author @bastiix
 # ----------------------------------------
 
 set -euo pipefail

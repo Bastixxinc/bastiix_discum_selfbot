@@ -1,11 +1,11 @@
 # ---------------------------------------------------------------------------
 # \src\core\discord\chameleon_mask.py
+# \author @bastiix
 # ---------------------------------------------------------------------------
 
 import random
 import threading
 import time
-import asyncio
 import datetime
  
 from src.core.animation.debug_animation import logger as debug_logger
@@ -94,7 +94,6 @@ def _activity_once(self):
         debug_logger.debug('chameleon', f"Warm-up Aktion {fn.__name__} erfolgreich: {res}")
     except Exception as e:
         debug_logger.error('chameleon', f"Warm-up Aktion {fn.__name__} fehlgeschlagen: {e}")
-    # Dummy-Interaktionen ergänzen
     for dummy in ['getChannel', 'getGuildRoles']:
         fn_dummy = getattr(self.bot, dummy, None)
         if callable(fn_dummy):
@@ -109,14 +108,11 @@ def _activity_once(self):
                     debug_logger.debug('chameleon', f"Dummy-Interaktion {dummy} ausgeführt: {gid}")
             except Exception as e:
                 debug_logger.error('chameleon', f"Dummy-Interaktion {dummy} fehlgeschlagen: {e}")
-    # Simuliere Lesebestätigung für zufällige Nachrichten
     try:
-        # Channels aus erster Guild
         guilds = self.bot.getGuilds()
         if isinstance(guilds, list) and guilds:
             first = guilds[0]
             gid = first.get('id') if isinstance(first, dict) else first
-            # Nachrichten abrufen und acken
             msgs = self.bot.getMessages(gid, num=3)
             if hasattr(msgs, 'json'):
                 data = msgs.json()
@@ -175,4 +171,3 @@ def mask(self):
     t2.start()
     debug_logger.debug('chameleon', 'Random-Activity-Loop Thread gestartet')
     debug_logger.debug('chameleon', 'Alle Masking-Routinen gestartet')
-    # Threads laufen weiter im Hintergrund
