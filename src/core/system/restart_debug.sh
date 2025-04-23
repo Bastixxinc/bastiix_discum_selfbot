@@ -13,4 +13,24 @@ elif command -v readlink >/dev/null 2>&1; then
 else
   MAIN_PY="$SCRIPT_DIR/../../../main.py"
 fi
-exec python3 "$MAIN_PY" DEBUG
+PROJECT_DIR="$(dirname "$(dirname "$(dirname "$SCRIPT_DIR")")")"
+VENV_ACT="$PROJECT_DIR/venv/bin/activate"
+if [ -f "$VENV_ACT" ]; then
+  source "$VENV_ACT"
+  PY_CMD=python
+else
+  if command -v python3 >/dev/null 2>&1; then
+    PY_CMD=python3
+  elif command -v py >/dev/null 2>&1; then
+    PY_CMD=py
+  else
+    PY_CMD=python
+  fi
+fi
+
+if ! "$PY_CMD" "$MAIN_PY" DEBUG; then
+  echo "ERROR: Failed to restart the script in debug mode." >&2
+  exit 1
+fi
+
+exit 0

@@ -5,15 +5,11 @@
 
 DEBUG = False                                       # Debug-Mode (True/False) Prettymode = DEBUGMODE FALSE
 LOGGING = True                                      # Logging-Mode (True/False) 
-PREFIX = "$"
+PREFIX = "$"                                        # Prefix für Befehle   
 LOGIN_EMAIL = ""                                    # leer lassen wenn login manuell eingegeben werden soll
 LOGIN_PASSWORD = ""                                 # leer lassen wenn login manuell eingegeben werden soll
 
-ALLLOWED_USERS = ("514907234644393996",             # Bastixx
-                  "488449454094155777",             # Dani Main
-                  "908467731840532521",             # Dani second
-                  "470936841345040384"              # Fabii
-                  )
+ALLLOWED_USERS = ("", "")                           # Liste der erlaubten User IDs [z.B. ("123456789012345678", "987654321098765432")] leer lassen wenn alle User erlaubt sind 
 MAINCOLOR   = "\033[1;36m"                          # Hauptfarbe
 SECONDCOLOR = "\033[94m"                            # Sekundärfarbe       
 STAMPCOLOR  = "\033[1;33m"                          # Zeitstempel-Farbe
@@ -25,7 +21,8 @@ SELFBOT_DUMP_CHANNEL = "1363982514993238037"        # Discord Dump Channel ID
 
 
 
-# SYSTEM-Variablen
+# SYSTEM-Variablen (besser nicht ändern wenn nicht nötig)
+# ---------------------------------------------------------------------------
 
 import os
 import platform
@@ -41,9 +38,19 @@ def spawn_restart():
     system = platform.system().lower()
     if system.startswith('win'):
         script = RESTART_DEBUG_MODE_PATH_WINDOWS
-        return subprocess.call([script])
+        subprocess.Popen(
+            ['cmd', '/c', 'start', '', script],
+            shell=False,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            close_fds=True
+        )
     elif system.startswith('linux') or system.startswith('darwin'):
         script = RESTART_DEBUG_MODE_PATH_LINUX
-        return subprocess.call(['sh', script])
+        subprocess.Popen(
+            ['sh', script],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
+        )
     else:
         raise RuntimeError(f"Unbekanntes Betriebssystem: {platform.system()}")

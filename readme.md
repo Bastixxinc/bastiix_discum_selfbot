@@ -8,7 +8,7 @@ python first_setup.py
 Eine umfassende Anleitung zum Einrichten, Konfigurieren und Verwenden des Bastiix Selfbot.
 Jeder Ordner enthält einen Unterordner `docs/` mit einer Dokumentation zu jeder Datei.
 
-**Es werden keine Module mitgeliefert. `help` ist der einzige integriere Befehl!** 
+**Bis auf ein Tutorial-Ping Modul werden keine Module mitgeliefert. `help`und `ping`sind die einzigen vorinstallierten Befehle!** 
 
 Im `docs/` Ordner, welcher im gleichen Ordner wie die `main.py` liegt, ist eine detaillierte Erklärung zum Schreiben eigener Module.
 
@@ -118,8 +118,11 @@ Passe diese Werte vor dem ersten Start an.
     │       └─ docs/               # Dokumentation (aktuell keine).
     └─ modules/             
         ├─ __init__.py           # Initialisierung für modularen Import.
-        └─ inaktiv/              # Vom Import ignorierte, inaktive Module.
-            └─ ...
+        ├─ inaktiv/              # Vom Import ignorierte, inaktive Module.
+        │ └─ ...
+        └─ ping/
+          ├─ __init__.py
+          └─ setup.py            # Beispiel Script für die Erstellung + Registrierung eines Commands
 ╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 ```
 

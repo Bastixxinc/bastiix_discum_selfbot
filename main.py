@@ -7,43 +7,13 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 import sys
-import re
 import time
-import traceback
-import subprocess
-import threading
-import asyncio
-import atexit
-from datetime import datetime
 
-# Selenium imports
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
-from selenium.common.exceptions import WebDriverException, TimeoutException as SeleniumTimeout
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-
-# Discord client
-import discum
-try:
-    from discum import DiscordError
-except ImportError:
-    DiscordError = Exception
-
-# Project imports
-from src.core.discord.commandtree import CommandTree
-from src.core.discord.message import error_message
-from src.core.discord.chameleon_mask import mask as apply_chameleon_mask
-
-# Animation & logging utilities
-from src.core.animation.debug_animation import logger as debug_logger
-from src.core.animation.running_animation import print_banner, append_message
-from src.core.animation.pretty_animation import pretty_banner, CYAN, YELLOW, BLUE, RESET
+# Flags
+DEBUG_OVERRIDE = len(sys.argv) > 1 and sys.argv[1] == "DEBUG"
+NO_SETTINGS = False
 
 # Settings override
-DEBUG_OVERRIDE = len(sys.argv) > 1 and sys.argv[1] == "DEBUG"
 try:
     import settings
     from settings import spawn_restart
@@ -54,14 +24,72 @@ try:
     prefix = getattr(settings, 'PREFIX', '$') or '$'
 except ImportError:
     settings = None
+    def spawn_restart():
+        pass
     DEBUG = True
     MAX_CHUNK_SIZE = 2000
     prefix = '&'
-debug_logger.warning('main', f"Prefix gesetzt auf '{prefix}' und DEBUG={DEBUG}")
+    NO_SETTINGS = True
 
+# Debug-Logger/Print Import
+from src.core.animation.debug_animation import logger as debug_logger
+
+# Debug-Logger konfig
+debug_logger.debug_enabled = DEBUG
+debug_logger.logging_enabled = getattr(settings, 'LOGGING', True) if settings else True
+
+# Weitere Imports
+import re
+import traceback
+import threading
+import asyncio
+import atexit
+from datetime import datetime
+
+# Selenium-Imports
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from selenium.common.exceptions import WebDriverException, TimeoutException as SeleniumTimeout
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+
+# Discum client
+import discum
+try:
+    from discum import DiscordError
+except ImportError:
+    DiscordError = Exception
+
+# Projekt-Imports
+from src.core.discord.commandtree import CommandTree
+from src.core.discord.message import error_message
+from src.core.discord.chameleon_mask import mask as apply_chameleon_mask
+from src.core.animation.running_animation import print_banner, append_message
+from src.core.animation.pretty_animation import pretty_banner
+
+# DEBUG_OVERRIDE Print
+def DEBUG_OVERRIDE_PRINT():
+    debug_logger.warning('main', "Fehler bei vorheriger Sitzung. Script startet automatisch im Debug-Modus.")
+    debug_logger.error('LOGIN', "Login-Fehler: Mehrere Login-Versuche fehlgeschlagen.")
+    time.sleep(3)
+
+if DEBUG_OVERRIDE:
+    DEBUG_OVERRIDE_PRINT()
+
+# Warnung, settings nicht gefunden
+if NO_SETTINGS:
+    debug_logger.warning('main', "Settings nicht gefunden, Standardwerte werden verwendet")
+    print_banner("Pre-startup Fehler")
+    append_message("Settings nicht gefunden, Standardwerte werden verwendet")
+
+# Fallback, Prefix Settings None ist
 if prefix is None:
     prefix = '&'
-    debug_logger.warning('main', "Settings nicht gefunden, Prefix auf '&' gesetzt")
+    debug_logger.warning('main', "Prefix nicht gesetzt, verwende '&'")
+    print_banner("Pre-startup Fehler")
+    append_message("Prefix nicht gesetzt, verwende '&'")
 
 
 def retry(exceptions, tries=2, delay=5, backoff=2, logger=None):
@@ -89,7 +117,7 @@ class LoginError(Exception):
         self.timestamp = datetime.utcnow()
     def __str__(self):
         base = super().__str__()
-        return f"{base} after {self.attempts} attempts at {self.timestamp.isoformat()}"
+        return f"{base} nach {self.attempts} Versuchen bei {self.timestamp.isoformat()}"
 
 class SelfBot:
     MAX_LOGIN_ATTEMPTS = 2
@@ -133,6 +161,7 @@ class SelfBot:
             debug_logger.debug('init', 'Token erfolgreich abgerufen und geparst')
         except LoginError as le:
             debug_logger.error('init', f"LoginError: {le}")
+            append_message(f"Login fehlgeschlagen: {le}")
             if self.DEBUG:
                 self._write_stackdump(le, crash=True)
                 sys.exit(1)
@@ -409,7 +438,9 @@ class SelfBot:
             self.bot.gateway.close()
             debug_logger.debug('cleanup', 'Gateway geschlossen')
         except Exception as e:
-            debug_logger.error('cleanup', f"Fehler beim Schließen: {e}")
+            debug_logger.error('cleanup', f"Fehler beim Schließen. Erzwinge das schließen in 10 Sekunden. Fehler: {e}")
+            time.sleep(10)
+            sys.exit(1)
 
     def run(self):
         self.verify_token()
