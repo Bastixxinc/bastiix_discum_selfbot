@@ -14,7 +14,6 @@ try:
 except ImportError:
     settings = type("S", (), {"DEBUG": True, "LOGGING": True})
 
-# ANSI‐Farbcodes
 _TS_COLOR    = "\033[94m"
 _DEBUG_COLOR = "\033[1;36m"
 _WARN_COLOR  = "\033[33m"
@@ -37,7 +36,7 @@ class DebugConsole:
             base_log_dir = os.path.join(os.getcwd(), "log", "debug")
             os.makedirs(base_log_dir, exist_ok=True)
             fname = datetime.now().strftime("%Y%m%d_%H%M%S") + ".txt"
-            self._log_fp = open(os.path.join(base_log_dir, fname), "a", encoding="utf-8")
+            self._log_fp = open(os.path.join(base_log_dir, fname), "a", encoding="utf-8", buffering=1)
             atexit.register(self._close_log)
 
     def _close_log(self):
@@ -51,6 +50,7 @@ class DebugConsole:
     def _log_line(self, line: str):
         if self.logging_enabled and self._log_fp:
             self._log_fp.write(self._strip_ansi(line) + "\n")
+            self._log_fp.flush()
 
     def _print_message(self, level_name: str, count: int, fn: str, msg: str, color: str):
         if not self.debug_enabled:
