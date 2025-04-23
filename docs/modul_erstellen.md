@@ -1,5 +1,5 @@
 # Modul-Erstellung für den Bastiix Selfbot
-Diese Dokumentation erklärt **sehr detailliert**, wie du selbst ein Modul für den Selfbot erstellst. Sie zeigt Schritt für Schritt:
+Diese Dokumentation erklärt, wie du selbst ein Modul für den Selfbot erstellst. Sie zeigt Schritt für Schritt:
 
 - Wie Module aufgebaut und im `CommandTree` registriert werden
 - Wie du **zwei Hilfebeschreibungen** bei Commands angibst
@@ -17,7 +17,7 @@ Lege dein Modul in `src/modules/<dein_modul>/`. Die Mindeststruktur:
 src/modules/
 └── mein_modul/
     ├── __init__.py   # Damit Python den Ordner als Package erkennt
-    └── setup.py      # Enthält die setup()-Funktion
+    └── setup.py      # Enthält die setup()-Funktion (kann auch anders beannt werden)
 ```
 
 ## 2. Die `setup()`-Funktion
@@ -66,10 +66,10 @@ def setup(command_tree):
     command_tree.register(cmd)
 ```
 
-### 2.1 Zwei Hilfebeschreibungen
+### 2.1 Zwei Hilfebeschreibungen & Automatisierter Console Notify
 - **help_description_short**: Kurze Zeile (max. 80 Zeichen), die in der Übersicht angezeigt wird.
 - **help_description_long**: Ausführliche Beschreibung, die bei `$help <Command>` erscheint.
-
+- Der **CommandTree** registriert wenn ein Befehl ausgeführt wird und printet im Debug und Pretty Mode eine Info.
 
 ## 3. Nachrichten-Typen aus `message.py`
 Die Rückgabe eines Command-Callbacks ist immer ein `str`, der an Discord gesendet wird. Hier eine Übersicht aller Typen:
@@ -128,6 +128,7 @@ Innerhalb eines Command-Callbacks gibst du einfach den String zurück. Der Selfb
 
 ```python
 # src/modules/mein_modul/setup.py
+from settings import PREFIX as prefix
 from src.core.discord.commandtree import Command
 from src.core.discord.message import (
     success_message, error_message, info_message, syntax_message
@@ -141,7 +142,7 @@ def setup(command_tree):
         debug_logger.debug('ping', 'Args: %s' % args)
         if args:
             return error_message("`ping` braucht keine Argumente.")
-        return success_message("Pong!")
+        return boxed_message("Pong!", "Ich habe Reagiert!")
 
     cmd_ping = Command(
         name="ping",
@@ -149,7 +150,7 @@ def setup(command_tree):
         help_description_short="Liefert Pong zurück",
         help_description_long=(
             "Einfacher Connectivity-Test.\n"
-            "Verwende `$ping`, um die Antwortzeit zu testen."
+            f"Verwende `{prefix}ping`, um die Antwortzeit zu testen."
         )
     )
     command_tree.register(cmd_ping)
@@ -166,4 +167,4 @@ Mit dieser Vorlage kannst du **beliebig viele** Commands in deinem Modul definie
 
 Viel Erfolg beim Erstellen deiner eigenen Module! 🎉
 
-*Dieses Readme ist KI Generiert.*
+*Dieses Readme ist teilweise KI Generiert.* ~@bastiix
