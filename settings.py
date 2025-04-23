@@ -5,7 +5,7 @@
 
 DEBUG = False                                       # Debug-Mode (True/False) Prettymode = DEBUGMODE FALSE
 LOGGING = True                                      # Logging-Mode (True/False) 
-PREFIX = "$"                                        # Prefix für Befehle   
+PREFIX = ""                                        # Prefix für Befehle   
 LOGIN_EMAIL = ""                                    # leer lassen wenn login manuell eingegeben werden soll
 LOGIN_PASSWORD = ""                                 # leer lassen wenn login manuell eingegeben werden soll
 
@@ -17,7 +17,7 @@ RESETCOLOR  = "\033[0m"                             # Reset-Farbe
 
 MAX_CHUNK_SIZE = 2000                               # Maximaler Chunk-Size für Discord-Nachrichten
 
-SELFBOT_DUMP_CHANNEL = "1363982514993238037"        # Discord Dump Channel ID
+SELFBOT_DUMP_CHANNEL = ""        # Discord Dump Channel ID
 
 
 
