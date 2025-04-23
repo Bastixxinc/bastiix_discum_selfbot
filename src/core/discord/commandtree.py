@@ -15,7 +15,7 @@ try:
 except ImportError:
     settings = None
 
-prefix = getattr(settings, 'PREFIX', '$') or "$"
+prefix = getattr(settings, 'PREFIX', '$')
 
 _raw_allowed = None
 if settings:

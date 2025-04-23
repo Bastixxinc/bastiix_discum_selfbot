@@ -21,14 +21,13 @@ try:
         settings.DEBUG = True
     DEBUG = getattr(settings, 'DEBUG', False)
     MAX_CHUNK_SIZE = getattr(settings, 'MAX_CHUNK_SIZE', 2000)
-    prefix = getattr(settings, 'PREFIX', '$') or '$'
+    prefix = getattr(settings, 'PREFIX', None)
 except ImportError:
     settings = None
     def spawn_restart():
         pass
     DEBUG = True
     MAX_CHUNK_SIZE = 2000
-    prefix = '&'
     NO_SETTINGS = True
 
 # Debug-Logger/Print Import
@@ -64,7 +63,6 @@ except ImportError:
 
 # Projekt-Imports
 from src.core.discord.commandtree import CommandTree
-from src.core.discord.message import error_message
 from src.core.discord.chameleon_mask import mask as apply_chameleon_mask
 from src.core.animation.running_animation import print_banner, append_message
 from src.core.animation.pretty_animation import pretty_banner
@@ -86,7 +84,7 @@ if NO_SETTINGS:
 
 # Fallback, Prefix Settings None ist
 if prefix is None:
-    prefix = '&'
+    prefix = '$'
     debug_logger.warning('main', "Prefix nicht gesetzt, verwende '&'")
     print_banner("Pre-startup Fehler")
     append_message("Prefix nicht gesetzt, verwende '&'")
