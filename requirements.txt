@@ -4,21 +4,21 @@
 # ---------------------------------------------------------------------------
 
 # Python-Pakete
-discum>=1.4.1
-selenium>=4.8.0
-python-dateutil>=2.8.2
-fpdf2>=2.7.1
-requests>=2.28.1
-websocket-client>=1.6.0
+discum
+selenium
+python-dateutil
+fpdf2
+requests
+websocket-client
 chromedriver-binary    
-webdriver-manager>=3.8.5
+webdriver-manager
 
 # (Optional) Transitive Abhängigkeiten für komplettes pinnen
-# certifi>=2021.10.8
-# chardet>=3.0.4
-# idna>=2.10
-# urllib3>=1.26.7
-# six>=1.15.0
+# certifi
+# chardet
+# idna
+# urllib3
+# six
 
 # -------------------------------------------------
 # Auf minimalistischen linux builds fehlen oft noch
