@@ -71,7 +71,7 @@ def main():
         append_message(f"installiere {pkg}")
         # Pip-Ausgabe unterdrücken
         subprocess.check_call(
-            [pip_executable, 'install', pkg],
+            [pip_executable, 'install', '--upgrade', pkg],
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL
         )
